@@ -6,6 +6,7 @@ export default function Member({ details }) {
     return (
         <div className="member container">
             <h2>{details.first_name} {details.last_name}</h2>
+            
         </div>
     )
 }

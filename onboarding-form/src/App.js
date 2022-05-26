@@ -44,6 +44,19 @@ function App() {
       }).catch(err => console.error(err))
   };
 
+  const postNewMember = newMember => {
+    axios.post('https://reqres.in/api/users', newMember)
+      .then(res => {
+        console.log(res.data)
+      }).catch(err => {
+        console.error(err)
+      }).finally(() => {
+        setFormValues(initialFormValues);
+      })
+  }
+
+  // const validate = () => {};
+
   // Event handlers
   const inputChange = (name, value) => {
     setFormValues({...formValues, [name]: value})
@@ -61,16 +74,6 @@ function App() {
     postNewMember(newMember);
   };  
 
-  const postNewMember = newMember => {
-    axios.post('https://reqres.in/api/users', newMember)
-      .then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.error(err)
-      }).finally(() => {
-        setFormValues(initialFormValues);
-      })
-  }
 
   return (
     <div className="App">
