@@ -11,14 +11,16 @@ Get Endpoint URL:
 */
 
 const initialFormValues  = {
-  name: '', // text input
+  fname: '', // text input
+  lname: '', // text input
   email: '', // text input
   password: '', // text input
   terms: false, // checkbox
 };
 
 const initialFormErrors = {
-  username: '',
+  fname: '',
+  lname: '',
   email: '',
   password: '',
 }
@@ -69,6 +71,7 @@ function App() {
   return (
     <div className="App">
       <h1>This App is Up and Running 🚀</h1>
+      
       <Form 
         values={formValues}
         change={inputChange}

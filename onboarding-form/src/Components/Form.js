@@ -23,28 +23,74 @@ export default function Form(props) {
   return (
       <form className="form-container" onSubmit={onSubmit}>
           <div className="form-group submit">
+                
                 <h2>Add New User</h2>
 
-                <div className="errors">
-                    <div>{errors.fname}</div>
-                    <div>{errors.fname}</div>
-                    <div>{errors.fname}</div>
-                    <div>{errors.fname}</div>
-                    <div>{errors.fname}</div>
-
-                </div>
+                <button disabled={disabled}>submit</button><br/><br/>
 
                 <div className="form-group submit">
+                    
 
+                    <div className="errors">
+                        <div>{errors.fname}</div>
+                        <div>{errors.lname}</div>
+                        <div>{errors.email}</div>
+                        <div>{errors.password}</div>
+                        <div>{errors.terms}</div>
+
+
+                    </div>
                 </div>
+            </div>
+                    
+                <div className="form-groups inputs">
+                    <h4>User Information</h4>
 
-                <button disabled={disabled}>submit</button>
-                    <label>First Name
+                    <label>First Name:&nbsp;
                         <input 
-
+                            value={values.fname}
+                            onChange={onChange}
+                            name="fname"
+                            type="text"
                         />
-                    </label>
-          </div>
+                    </label>&nbsp;&nbsp;
+
+                    <label>Last Name:&nbsp;
+                        <input 
+                            value={values.lname}
+                            onChange={onChange}
+                            name="lname"
+                            type="text"
+                        />
+                    </label><br/><br/>
+
+                    <label>Email Address:&nbsp;
+                        <input 
+                            value={values.empasswordail}
+                            onChange={onChange}
+                            name="password"
+                            type="text"
+                        />
+                    </label><br/><br/>
+
+                    <label>Last Name:&nbsp;
+                        <input 
+                            value={values.email}
+                            onChange={onChange}
+                            name="fname"
+                            type="email"
+                        />
+                    </label><br/><br/>
+
+                    <label>Agree to Terms and Conditions:&nbsp;
+                        <input 
+                            value={values.terms}
+                            onChange={onChange}
+                            name="terms"
+                            type="checkbox"
+                        />
+                    </label>&nbsp;&nbsp;
+                </div>
       </form>
   )
 
