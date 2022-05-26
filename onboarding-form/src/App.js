@@ -1,6 +1,7 @@
 import './App.css';
 import {useState, useEffect} from 'react';
 import Form from './Components/Form';
+import Member from './Components/Member';
 import axios from 'axios';
 import * as yup from 'yup';
 import schema from './Validation/formSchema';
@@ -11,16 +12,16 @@ Get Endpoint URL:
 */
 
 const initialFormValues  = {
-  fname: '', // text input
-  lname: '', // text input
+  first_name: '', // text input
+  last_name: '', // text input
   email: '', // text input
   password: '', // text input
   terms: false, // checkbox
 };
 
 const initialFormErrors = {
-  fname: '',
-  lname: '',
+  first_name: '',
+  last_name: '',
   email: '',
   password: '',
 }
@@ -31,13 +32,16 @@ const initialDisabled = true;
 function App() {
 
   const [members, setMembers] = useState(initialMembers);
-  const [formValues, setFormValues] = useState(initialFormErrors);  // State const for Stored entries
+  const [formValues, setFormValues] = useState(initialFormValues);  // State const for Stored entries
   const [formErrors, setFormErrors] = useState(initialFormErrors); // State const for errors
   const [disabled, setDisabled] = useState(initialDisabled); // State(?) const for validation
 
   // Helpers
   const getMembers = () => {
-
+    axios.get('https://reqres.in/api/users')
+      .then(res => {console.log(res)
+        setMembers(res.data)
+      }).catch(err => console.error(err))
   };
 
   // Event handlers
@@ -47,8 +51,8 @@ function App() {
 
   const formSubmit = () => {
     const newMember = {
-      fname: formValues.fname.trim(),
-      lname: formValues.lname.trim(),
+      first_name: formValues.first_name.trim(),
+      last_name: formValues.last_name.trim(),
       email: formValues.email.trim(),
       password: formValues.password,
       terms: formValues.terms
@@ -71,7 +75,7 @@ function App() {
   return (
     <div className="App">
       <h1>This App is Up and Running 🚀</h1>
-      
+
       <Form 
         values={formValues}
         change={inputChange}
@@ -80,9 +84,11 @@ function App() {
         errors={formErrors}
       />
 
-      {/* {
-        members.map(() => {};)
-      } */}
+      {
+        members.map(member => {
+          <Member key={member.id} details={member} />
+        })
+      }
     </div>
   );
 }

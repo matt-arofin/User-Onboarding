@@ -32,7 +32,7 @@ export default function Form(props) {
                     
 
                     <div className="errors">
-                        <div>{errors.fname}</div>
+                        <div>{errors.first_name}</div>
                         <div>{errors.lname}</div>
                         <div>{errors.email}</div>
                         <div>{errors.password}</div>
@@ -48,37 +48,37 @@ export default function Form(props) {
 
                     <label>First Name:&nbsp;
                         <input 
-                            value={values.fname}
+                            value={values.first_name}
                             onChange={onChange}
-                            name="fname"
+                            name="first_name"
                             type="text"
                         />
                     </label>&nbsp;&nbsp;
 
                     <label>Last Name:&nbsp;
                         <input 
-                            value={values.lname}
+                            value={values.last_name}
                             onChange={onChange}
                             name="lname"
                             type="text"
-                        />
+                        />&nbsp;
                     </label><br/><br/>
 
                     <label>Email Address:&nbsp;
                         <input 
-                            value={values.empasswordail}
+                            value={values.email}
+                            onChange={onChange}
+                            name="email"
+                            type="email"
+                        />
+                    </label>&nbsp;&nbsp;
+
+                    <label>Password:&nbsp;
+                        <input 
+                            value={values.password}
                             onChange={onChange}
                             name="password"
                             type="text"
-                        />
-                    </label><br/><br/>
-
-                    <label>Last Name:&nbsp;
-                        <input 
-                            value={values.email}
-                            onChange={onChange}
-                            name="fname"
-                            type="email"
                         />
                     </label><br/><br/>
 
