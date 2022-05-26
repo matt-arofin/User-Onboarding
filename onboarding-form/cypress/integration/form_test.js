@@ -28,4 +28,5 @@ describe("Onboarding App", () => {
         termsCheckbox().should("exist");
         submitBtn().should("exist");
     })
+    
 })

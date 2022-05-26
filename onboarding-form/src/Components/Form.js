@@ -1,9 +1,7 @@
-// 
-
-
+import React from 'react';
 
 export default function Form(props) {
-    const { values, change, submit, disabled, errors} = props;
+    const { values, /* setValues, */ change, submit, disabled, errors} = props;
         
     /* 
   - [ ] Name (first_name, last_name)
@@ -24,6 +22,8 @@ export default function Form(props) {
       submit()
   };
 
+    
+
   return (
       <form className="form-container" onSubmit={onSubmit}>
             <div className="form-group submit">
@@ -31,20 +31,14 @@ export default function Form(props) {
                 <h2>Add New User</h2>
 
                 <button disabled={disabled} id='submitBtn'>submit</button><br/><br/>
-
-                <div className="form-group submit">
                     
-
                     <div className="errors">
                         <div>{errors.first_name}</div>
                         <div>{errors.last_name}</div>
                         <div>{errors.email}</div>
                         <div>{errors.password}</div>
                         <div>{errors.terms}</div>
-
-
                     </div>
-                </div>
             </div>
                     
             <div className="form-group inputs">

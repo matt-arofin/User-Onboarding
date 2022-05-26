@@ -7,9 +7,10 @@ import * as yup from 'yup';
 import schema from './Validation/formSchema';
 
 /* 
-Post Endpoint URL: https://reqres.in/api/users
-Get Endpoint URL: 
+Endpoint URL: https://reqres.in/api/users
 */
+
+const baseURL = 'https://reqres.in/api/users';
 
 const initialFormValues  = {
   first_name: '', // text input
@@ -36,31 +37,45 @@ function App() {
   const [formErrors, setFormErrors] = useState(initialFormErrors); // State const for errors
   const [disabled, setDisabled] = useState(initialDisabled); // State(?) const for validation
 
-  // Helpers
+  // Network Helpers
   const getMembers = () => {
-    axios.get('https://reqres.in/api/users')
-      .then(res => {console.log(res)
-        setMembers(res.data)
-      }).catch(err => console.error(err))
+    axios.get(baseURL)
+      .then(res => {
+        setMembers(res.data.data)
+        console.log("members array: ", members)
+      }).catch(handleError)
   };
 
   const postNewMember = newMember => {
-    axios.post('https://reqres.in/api/users', newMember)
+    axios.post(baseURL, newMember)
       .then(res => {
-        console.log(res.data)
-      }).catch(err => {
-        console.error(err)
-      }).finally(() => {
-        setFormValues(initialFormValues);
+        setMembers(members.concat(res.data, ...members))
       })
+      .catch(handleError)
+      .finally(resetForm)
   }
 
-  // const validate = () => {};
+  const validate = (name, value) => {
+    yup.reach(schema, name).validate(value)
+      .then(() => setFormErrors({...formErrors, [name]: ""})
+      ).catc(err => setFormErrors({...formErrors, [name]: err.errors[0]}))
+  };
+
+
+  // Other Helpers
+  const handleError = err => console.error(err);
+
+  const resetForm = () => setFormValues(initialFormValues);
+    
+  // Effect Handlers
+  useEffect(() => getMembers(), [])
 
   // Event handlers
   const inputChange = (name, value) => {
+    validate(name, value);
     setFormValues({...formValues, [name]: value})
   };
+
 
   const formSubmit = () => {
     const newMember = {
@@ -70,9 +85,17 @@ function App() {
       password: formValues.password,
       terms: formValues.terms
     }
-
     postNewMember(newMember);
   };  
+
+  // side effects
+  useEffect(() => {
+    getMembers()
+  }, []);
+
+  useEffect(() => {
+    schema.isValid(formValues).then(valid => setDisabled(!valid))
+  }, [formValues])
 
 
   return (
@@ -85,13 +108,14 @@ function App() {
         submit={formSubmit}
         disabled={disabled}
         errors={formErrors}
+        // setValues={setFormValues}
       />
 
-      {
+      {/* {
         members.map(member => {
-          <Member key={member.id} details={member} />
+          return <Member key={member.id} details={member} />
         })
-      }
+      } */}
     </div>
   );
 }
